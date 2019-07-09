@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/samyakahuja/suji/kango"
 	"github.com/spf13/cobra"
 	"os"
 )
@@ -26,7 +27,15 @@ var kangoCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		fmt.Printf("%d numbers to be generated between 0 and %d.\n", rep, max)
+		gen := kango.New(seed)
+		gen.SetMax(max)
+		numbers := gen.GetNums(rep)
+		for _, n := range numbers {
+			fmt.Println(n)
+			ready()
+			fmt.Println(kango.SpellKango(n))
+			ready()
+		}
 	},
 }
 
